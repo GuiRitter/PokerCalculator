@@ -1,16 +1,3 @@
-# poker_calculator
+# Poker Calculator
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Uses [Accessories-calculator.svg](https://commons.wikimedia.org/wiki/File:Accessories-calculator.svg), [French suits.svg](https://commons.wikimedia.org/wiki/File:French_suits.svg) and [Trophy (61715) - The Noun Project.svg](https://commons.wikimedia.org/wiki/File:Trophy_(61715)_-_The_Noun_Project.svg).
