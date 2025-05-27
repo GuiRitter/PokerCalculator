@@ -1,4 +1,4 @@
-package com.example.poker_calculator
+package io.github.guiritter.poker_calculator
 
 import io.flutter.embedding.android.FlutterActivity
 

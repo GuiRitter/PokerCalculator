@@ -1,9 +1,10 @@
 # Check list
 
-* Create Logo
+* ✅ Create Logo
   * ✅ Create Logo in InkScape.
-  * Generate renders.
-  * Generate launcher icon in Android Studio
+  * ✅ Generate renders.
+  * ✅ Generate launcher icon in Android Studio
+* Create splash page
 * Integrate Redux with LocalStorage
   * Export LocalStorage as JSON
   * Import LocalStorage as JSON
