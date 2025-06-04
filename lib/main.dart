@@ -30,7 +30,8 @@ import 'package:flutter_redux/flutter_redux.dart'
 import 'package:intl/date_symbol_data_local.dart' show initializeDateFormatting;
 import 'package:poker_calculator/common/_import.dart'
     show AppLocalizations, StateEnum;
-import 'package:poker_calculator/model/_import.dart' show StateModelWrapper;
+import 'package:poker_calculator/model/_import.dart'
+    show SessionModel, StateModelWrapper;
 import 'package:poker_calculator/redux/main.reducer.dart' show reducer;
 import 'package:poker_calculator/theme/_import.dart' show dark, light;
 import 'package:poker_calculator/ui/page/_import.dart' show RootPage;
@@ -96,6 +97,108 @@ FutureOr initializeApp(
       token: token,
       state: StateEnum.foo,
       sessionId: null,
+      sessionList: <SessionModel>[
+        SessionModel(
+          id: '00',
+          name: 'Session 00',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '01',
+          name: 'Session 01',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '02',
+          name: 'Session 02',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '03',
+          name: 'Session 03',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '04',
+          name: 'Session 04',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '05',
+          name: 'Session 05',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '06',
+          name: 'Session 06',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '07',
+          name: 'Session 07',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '08',
+          name: 'Session 08',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '09',
+          name: 'Session 09',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '10',
+          name: 'Session 10',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '11',
+          name: 'Session 11',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '12',
+          name: 'Session 12',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '13',
+          name: 'Session 13',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '14',
+          name: 'Session 14',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '15',
+          name: 'Session 15',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '16',
+          name: 'Session 16',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '17',
+          name: 'Session 17',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '18',
+          name: 'Session 18',
+          createdAt: DateTime.now(),
+        ),
+        SessionModel(
+          id: '19',
+          name: 'Session 19',
+          createdAt: DateTime.now(),
+        ),
+      ],
     ).storeStateMap,
     middleware: [
       thunkMiddleware,

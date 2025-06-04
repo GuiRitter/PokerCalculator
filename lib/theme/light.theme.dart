@@ -19,6 +19,7 @@ ThemeData light({
           const Color(
             // Wenge, to contrast with the suit's colors and desaturated to not stand out too much
             0xFF645452, // WebAIM: white background, this foreground
+            // ignore: deprecated_member_use
           ).value,
           // https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
           // Taupe (483C32), gives the palette with a somewhat desaturated brown

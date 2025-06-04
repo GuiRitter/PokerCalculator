@@ -1,4 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show BuildContext, ListView, StatelessWidget, Widget;
+import 'package:flutter_guiritter/ui/widget/_import.dart'
+    show AppBarSignedOutWidget, BodyWidget;
+import 'package:flutter_guiritter/util/_import.dart' show logger;
+import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
+import 'package:poker_calculator/model/_import.dart' show SessionModel;
+import 'package:poker_calculator/ui/widget/_import.dart'
+    show SessionWidget, getTextL;
+
+final _log = logger('SessionPage');
 
 class SessionPage extends StatelessWidget {
   const SessionPage({
@@ -9,6 +19,36 @@ class SessionPage extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    return const Placeholder();
+    _log('build').print();
+
+    return BodyWidget(
+      usePadding: false,
+      appBar: AppBarSignedOutWidget(
+        title: getTextL((l) => l!.title),
+      ),
+      body: StoreConnector<Map<String, dynamic>, List<SessionModel>>(
+        distinct: true,
+        converter: SessionModel.select,
+        builder: connectorBuilder,
+      ),
+    );
+  }
+
+  Widget connectorBuilder(
+    BuildContext context,
+    List<SessionModel> sessionList,
+  ) {
+    _log('connectorBuilder').mapList('sessionList', sessionList).print();
+
+    return ListView.builder(
+      itemCount: sessionList.length,
+      itemBuilder: (
+        context,
+        index,
+      ) =>
+          SessionWidget(
+        session: sessionList[index],
+      ),
+    );
   }
 }

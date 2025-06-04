@@ -5,9 +5,6 @@
   * ✅ Generate renders
   * ✅ Generate launcher icon in Android Studio
 * ✅ Create splash page
-* Integrate Redux with LocalStorage
-  * Export LocalStorage as JSON
-  * Import LocalStorage as JSON
 * Session List
   * Create Session
   * Read Session
@@ -19,6 +16,9 @@
       * By Name
   * Delete Session
   * Play Session
+* Integrate Redux with LocalStorage
+  * Export LocalStorage as JSON
+  * Import LocalStorage as JSON
 * Play
   * Set Number of Players (2–22), Big Blind, Initial Stack
   * Set Player Names in order

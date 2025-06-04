@@ -19,6 +19,7 @@ ThemeData dark({
           const Color(
             // Arylide yellow, to contrast with the suit's colors and desaturated to not stand out too much
             0xFFE9D66B, // WebAIM: 424242 background, this foreground
+            // ignore: deprecated_member_use
           ).value,
           // https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
           // Drab dark brown (4A412A), gives the palette with a somewhat desaturated yellow that doesn't turn into orange while being slightly orangish

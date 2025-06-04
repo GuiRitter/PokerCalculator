@@ -6,6 +6,7 @@ import 'package:flutter_guiritter/model/_import.dart' as model_gui_ritter;
 import 'package:flutter_guiritter/model/_import.dart' show LoadingTagModel;
 import 'package:poker_calculator/common/_import.dart'
     show AppLocalizations, StateEnum, StateKey;
+import 'package:poker_calculator/model/_import.dart' show SessionModel;
 import 'package:redux/redux.dart' show Store;
 
 class StateModelWrapper
@@ -22,6 +23,7 @@ class StateModelWrapper
     required ThemeMode themeMode,
     required StateEnum state,
     required String? sessionId,
+    required List<SessionModel> sessionList,
   }) : this(
           storeStateMap: {
             common_gui_ritter.StateKey.l10n: l10n,
@@ -31,6 +33,7 @@ class StateModelWrapper
             common_gui_ritter.StateKey.token: token,
             StateKey.state: state,
             StateKey.sessionId: sessionId,
+            StateKey.sessionList: sessionList,
           },
         );
 
@@ -44,6 +47,18 @@ class StateModelWrapper
       setSessionId(
         storeStateMap: storeStateMap,
         sessionId: sessionId,
+      );
+
+  List<SessionModel> get sessionList => getSessionList(
+        storeStateMap: storeStateMap,
+      );
+
+  set sessionList(
+    List<SessionModel> sessionList,
+  ) =>
+      setSessionList(
+        storeStateMap: storeStateMap,
+        sessionList: sessionList,
       );
 
   StateEnum get state => getState(
@@ -67,6 +82,7 @@ class StateModelWrapper
     ValueGetter<String?>? token,
     ValueGetter<StateEnum>? state,
     ValueGetter<String?>? sessionId,
+    ValueGetter<List<SessionModel>>? sessionList,
   }) =>
       buildNewMap(
         storeStateMap: storeStateMap,
@@ -77,6 +93,7 @@ class StateModelWrapper
         loadingTagList: loadingTagList,
         state: state,
         sessionId: sessionId,
+        sessionList: sessionList,
       );
 
   static Map<String, dynamic> buildNewMap({
@@ -88,6 +105,7 @@ class StateModelWrapper
     ValueGetter<String?>? token,
     ValueGetter<StateEnum>? state,
     ValueGetter<String?>? sessionId,
+    ValueGetter<List<SessionModel>>? sessionList,
   }) {
     final storeStateMapNew = model_gui_ritter.StateModelWrapper.buildNewMap(
       storeStateMap: storeStateMap,
@@ -109,8 +127,13 @@ class StateModelWrapper
         ? sessionId.call()
         : storeStateWrapperCurrent.sessionId;
 
+    final newSessionList = (sessionList != null)
+        ? sessionList.call()
+        : storeStateWrapperCurrent.sessionList;
+
     storeStateMapNew[StateKey.state] = newState;
     storeStateMapNew[StateKey.sessionId] = newSessionId;
+    storeStateMapNew[StateKey.sessionList] = newSessionList;
 
     return storeStateMapNew;
   }
@@ -119,6 +142,11 @@ class StateModelWrapper
     required Map<String, dynamic> storeStateMap,
   }) =>
       storeStateMap[StateKey.sessionId] as String?;
+
+  static List<SessionModel> getSessionList({
+    required Map<String, dynamic> storeStateMap,
+  }) =>
+      storeStateMap[StateKey.sessionList] as List<SessionModel>;
 
   static StateEnum getState({
     required Map<String, dynamic> storeStateMap,
@@ -170,6 +198,12 @@ class StateModelWrapper
     required String? sessionId,
   }) =>
       storeStateMap[StateKey.sessionId] = sessionId;
+
+  static setSessionList({
+    required Map<String, dynamic> storeStateMap,
+    required List<SessionModel> sessionList,
+  }) =>
+      storeStateMap[StateKey.sessionList] = sessionList;
 
   static setState({
     required Map<String, dynamic> storeStateMap,
