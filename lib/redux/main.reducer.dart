@@ -10,6 +10,8 @@ import 'package:flutter_guiritter/util/_import.dart' show logger;
 import 'package:poker_calculator/common/_import.dart' show AppLocalizations;
 import 'package:poker_calculator/redux/navigation/reducer.dart'
     show navigationCombinedReducer;
+import 'package:poker_calculator/redux/session/reducer.dart'
+    show sessionCombinedReducer;
 import 'package:redux/redux.dart' show TypedReducer, combineReducers;
 
 final noActionTypedReducer = TypedReducer<Map<String, dynamic>, NoAction>(
@@ -36,6 +38,7 @@ Map<String, dynamic> reducer(
       loadingCombinedReducer,
       navigationCombinedReducer,
       noActionTypedReducer,
+      sessionCombinedReducer,
       themeCombinedReducer,
       userCombinedReducer,
     ],

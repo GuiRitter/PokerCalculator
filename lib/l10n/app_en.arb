@@ -1,3 +1,5 @@
 {
+  "newSession": "Start a new session",
+  "newSessionName": "New session name",
   "title": "Poker Calculator"
 }

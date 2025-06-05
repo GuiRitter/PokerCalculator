@@ -6,7 +6,7 @@
   * ✅ Generate launcher icon in Android Studio
 * ✅ Create splash page
 * Session List
-  * Create Session
+  * ✅ Create Session
   * Read Session
     * Refresh Button
     * Read after Create

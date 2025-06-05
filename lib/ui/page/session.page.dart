@@ -41,13 +41,13 @@ class SessionPage extends StatelessWidget {
     _log('connectorBuilder').mapList('sessionList', sessionList).print();
 
     return ListView.builder(
-      itemCount: sessionList.length,
+      itemCount: sessionList.length + 1,
       itemBuilder: (
         context,
         index,
       ) =>
           SessionWidget(
-        session: sessionList[index],
+        session: (index < sessionList.length) ? sessionList[index] : null,
       ),
     );
   }
