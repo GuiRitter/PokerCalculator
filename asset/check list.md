@@ -7,6 +7,7 @@
 * ✅ Create splash page
 * Session List
   * ✅ Create Session
+  * ✅ Delete Session
   * Read Session
     * Refresh Button
     * Read after Create
@@ -14,7 +15,6 @@
     * Sort
       * By Creation Date
       * By Name
-  * Delete Session
   * Play Session
 * Integrate Redux with LocalStorage
   * Export LocalStorage as JSON

@@ -2,17 +2,20 @@ import 'package:flutter_guiritter/extension/_import.dart'
     show DateTimeNullableExtension;
 import 'package:flutter_guiritter/model/_import.dart' show LoggableModel;
 import 'package:poker_calculator/model/_import.dart' show StateModelWrapper;
+import 'package:poker_calculator/redux/session/action.dart' as session_action;
 import 'package:redux/redux.dart' show Store;
 
 class SessionModel implements LoggableModel {
   final String id;
   final String name;
   final DateTime createdAt;
+  final bool isSelected;
 
   SessionModel({
     required this.id,
     required this.name,
     required this.createdAt,
+    this.isSelected = false,
   });
 
   @override
@@ -30,7 +33,44 @@ class SessionModel implements LoggableModel {
         'id': id,
         'name': name,
         'createdAt': createdAt.getISO8601(),
+        'isSelected': isSelected,
       };
+
+  SessionModel toggleSelectedOnMatch({
+    required session_action.ToggleSessionSelectionAction action,
+  }) =>
+      (id == action.id)
+          ? withIsSelected(
+              isSelected: action.isSelected,
+            )
+          : this;
+
+  SessionModel withIsSelected({
+    required bool isSelected,
+  }) =>
+      SessionModel(
+        id: id,
+        name: name,
+        createdAt: createdAt,
+        isSelected: isSelected,
+      );
+
+  static bool isAnySessionSelected({
+    required List<SessionModel> sessionList,
+  }) =>
+      sessionList.any(
+        SessionModel.isSessionSelected,
+      );
+
+  static bool isSessionNotSelected(
+    SessionModel session,
+  ) =>
+      !session.isSelected;
+
+  static bool isSessionSelected(
+    SessionModel session,
+  ) =>
+      session.isSelected;
 
   static List<SessionModel> select(
     Store<Map<String, dynamic>> store,

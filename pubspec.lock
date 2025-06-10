@@ -124,7 +124,7 @@ packages:
       path: "."
       ref: HEAD
       resolved-ref: "79927b2f4c52543cc76a3e03ab7d6a10cb4d00d1"
-    version: "1.9.0+15"
+    version: "1.10.0+16"
   flutter_lints:
     dependency: "direct dev"
     description:
