@@ -1,9 +1,9 @@
-import 'package:flutter_guiritter/model/_import.dart' show LoggableModel;
+import 'package:flutter_guiritter/model/_import.dart' show Loggable;
 import 'package:poker_calculator/common/_import.dart' show StateEnum;
 import 'package:poker_calculator/model/_import.dart' show StateModelWrapper;
 import 'package:redux/redux.dart' show Store;
 
-class TabsModel implements LoggableModel {
+class TabsModel implements Loggable {
   final bool isLoading;
   final bool isSessionSelected;
   // TODO might not be needed

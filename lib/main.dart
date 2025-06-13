@@ -87,18 +87,30 @@ FutureOr initializeApp(
     token: token,
   );
 
+  final initialStateString = prefs.getString(
+    Settings.stateStorageKey,
+  );
+
+  final initialState = ((initialStateString == null)
+      ? (
+          StateModelWrapper.init(
+            l10n: null,
+            l10nGuiRitter: null,
+            loadingTagList: <LoadingTagModel>[],
+            themeMode: theme,
+            token: token,
+            state: StateEnum.foo,
+            sessionId: null,
+            sessionList: <SessionModel>[],
+          ),
+        )
+      : StateModelWrapper.deserialize(
+          serialized: initialStateString,
+        )) as StateModelWrapper;
+
   final store = Store<Map<String, dynamic>>(
     reducer,
-    initialState: StateModelWrapper.init(
-      l10n: null,
-      l10nGuiRitter: null,
-      loadingTagList: <LoadingTagModel>[],
-      themeMode: theme,
-      token: token,
-      state: StateEnum.foo,
-      sessionId: null,
-      sessionList: <SessionModel>[],
-    ).storeStateMap,
+    initialState: initialState.storeStateMap,
     middleware: [
       thunkMiddleware,
     ],

@@ -16,7 +16,7 @@
       * By Creation Date
       * By Name
   * Play Session
-* Integrate Redux with LocalStorage
+* ✅ Integrate Redux with LocalStorage
   * Export LocalStorage as JSON
   * Import LocalStorage as JSON
 * Play

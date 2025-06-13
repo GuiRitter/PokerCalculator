@@ -1,7 +1,11 @@
+import 'dart:convert' show jsonDecode, jsonEncode;
+
 import 'package:flutter/material.dart' show ThemeMode, ValueGetter;
 import 'package:flutter_guiritter/common/_import.dart'
     show AppLocalizationsGuiRitter;
 import 'package:flutter_guiritter/common/_import.dart' as common_gui_ritter;
+import 'package:flutter_guiritter/extension/_import.dart'
+    show EncodableListExtension;
 import 'package:flutter_guiritter/model/_import.dart' as model_gui_ritter;
 import 'package:flutter_guiritter/model/_import.dart' show LoadingTagModel;
 import 'package:poker_calculator/common/_import.dart'
@@ -14,6 +18,35 @@ class StateModelWrapper
   StateModelWrapper({
     required super.storeStateMap,
   });
+
+  factory StateModelWrapper.deserialize({
+    required String serialized,
+  }) {
+    final json = jsonDecode(
+      serialized,
+    );
+
+    final storeStateMap = {
+      common_gui_ritter.StateKey.l10n: null,
+      common_gui_ritter.StateKey.l10nGuiRitter: null,
+      common_gui_ritter.StateKey.themeMode: ThemeMode.values.byName(
+        json[common_gui_ritter.StateKey.themeMode],
+      ),
+      common_gui_ritter.StateKey.loadingTagList: <LoadingTagModel>[],
+      common_gui_ritter.StateKey.token: json[common_gui_ritter.StateKey.token],
+      StateKey.state: StateEnum.values.byName(
+        json[StateKey.state],
+      ),
+      StateKey.sessionId: json[StateKey.sessionId],
+      StateKey.sessionList: SessionModel.ofDynamicList(
+        list: json[StateKey.sessionList],
+      ),
+    };
+
+    return StateModelWrapper(
+      storeStateMap: storeStateMap,
+    );
+  }
 
   StateModelWrapper.init({
     required AppLocalizations? l10n,
@@ -94,6 +127,20 @@ class StateModelWrapper
         state: state,
         sessionId: sessionId,
         sessionList: sessionList,
+      );
+
+  @override
+  String serialize() => jsonEncode(
+        {
+          common_gui_ritter.StateKey.l10n: null,
+          common_gui_ritter.StateKey.l10nGuiRitter: null,
+          common_gui_ritter.StateKey.themeMode: themeMode.name,
+          common_gui_ritter.StateKey.loadingTagList: <LoadingTagModel>[],
+          common_gui_ritter.StateKey.token: token,
+          StateKey.state: state.name,
+          StateKey.sessionId: sessionId,
+          StateKey.sessionList: sessionList.toJson(),
+        },
       );
 
   static Map<String, dynamic> buildNewMap({

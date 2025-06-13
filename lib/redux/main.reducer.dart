@@ -1,3 +1,4 @@
+import 'package:flutter_guiritter/common/_import.dart' show Settings;
 import 'package:flutter_guiritter/redux/l10n/reducer.dart'
     show buildL10nCombinedReducer;
 import 'package:flutter_guiritter/redux/loading/reducer.dart'
@@ -8,11 +9,14 @@ import 'package:flutter_guiritter/redux/user/reducer.dart'
     show userCombinedReducer;
 import 'package:flutter_guiritter/util/_import.dart' show logger;
 import 'package:poker_calculator/common/_import.dart' show AppLocalizations;
+import 'package:poker_calculator/model/_import.dart' show StateModelWrapper;
 import 'package:poker_calculator/redux/navigation/reducer.dart'
     show navigationCombinedReducer;
 import 'package:poker_calculator/redux/session/reducer.dart'
     show sessionCombinedReducer;
 import 'package:redux/redux.dart' show TypedReducer, combineReducers;
+import 'package:shared_preferences/shared_preferences.dart'
+    show SharedPreferences;
 
 final noActionTypedReducer = TypedReducer<Map<String, dynamic>, NoAction>(
   noActionReducer,
@@ -44,10 +48,26 @@ Map<String, dynamic> reducer(
     ],
   );
 
-  return reducerCombined(
+  final stateReduced = reducerCombined(
     stateModelMap,
     action,
   );
+
+  final wrapper = StateModelWrapper(
+    storeStateMap: stateReduced,
+  );
+
+  SharedPreferences.getInstance().then(
+    (
+      SharedPreferences prefs,
+    ) =>
+        prefs.setString(
+      Settings.stateStorageKey,
+      wrapper.serialize(),
+    ),
+  );
+
+  return stateReduced;
 }
 
 class NoAction {}

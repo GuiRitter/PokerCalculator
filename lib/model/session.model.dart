@@ -1,11 +1,11 @@
 import 'package:flutter_guiritter/extension/_import.dart'
-    show DateTimeNullableExtension;
-import 'package:flutter_guiritter/model/_import.dart' show LoggableModel;
+    show DateTimeNullableExtension, DynamicListExtension;
+import 'package:flutter_guiritter/model/_import.dart' show Encodable, Loggable;
 import 'package:poker_calculator/model/_import.dart' show StateModelWrapper;
 import 'package:poker_calculator/redux/session/action.dart' as session_action;
 import 'package:redux/redux.dart' show Store;
 
-class SessionModel implements LoggableModel {
+class SessionModel implements Loggable, Encodable {
   final String id;
   final String name;
   final DateTime createdAt;
@@ -45,6 +45,14 @@ class SessionModel implements LoggableModel {
             )
           : this;
 
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'createdAt': createdAt.getISO8601(),
+        'isSelected': isSelected,
+      };
+
   SessionModel withIsSelected({
     required bool isSelected,
   }) =>
@@ -53,6 +61,17 @@ class SessionModel implements LoggableModel {
         name: name,
         createdAt: createdAt,
         isSelected: isSelected,
+      );
+
+  static SessionModel fromJson(
+    dynamic json,
+  ) =>
+      SessionModel(
+        id: json['id'],
+        name: json['name'],
+        createdAt: DateTime.parse(
+          json['createdAt'],
+        ),
       );
 
   static bool isAnySessionSelected({
@@ -71,6 +90,13 @@ class SessionModel implements LoggableModel {
     SessionModel session,
   ) =>
       session.isSelected;
+
+  static List<SessionModel> ofDynamicList({
+    required dynamic list,
+  }) =>
+      DynamicListExtension(list).ofDynamic(
+        mapper: SessionModel.fromJson,
+      );
 
   static List<SessionModel> select(
     Store<Map<String, dynamic>> store,
