@@ -1,4 +1,5 @@
 {
+  "another": "Mais um?",
   "confirmDeleteSession": "Confirmar deletar sessão",
   "deleteSessionChallenge": "[{challenge}] para confirmar",
   "newSession": "Iniciar uma sessão nova",

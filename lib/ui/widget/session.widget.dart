@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart'
     show
-        AlertDialog,
         BuildContext,
         Card,
         CheckboxListTile,
@@ -12,19 +11,16 @@ import 'package:flutter/material.dart'
         StatelessWidget,
         Text,
         TextEditingController,
-        TextField,
         Widget,
         showDialog;
 import 'package:flutter_guiritter/extension/_import.dart'
     show DateTimeExtension;
 import 'package:flutter_guiritter/redux/_import.dart' show dispatch;
-import 'package:flutter_guiritter/ui/widget/_import.dart' show buildTextButton;
-import 'package:flutter_guiritter/util/_import.dart'
-    show logger, onDialogCancelPressed;
+import 'package:flutter_guiritter/util/_import.dart' show logger;
 import 'package:poker_calculator/model/_import.dart' show SessionModel;
 import 'package:poker_calculator/redux/session/action.dart' as session_action;
-import 'package:poker_calculator/ui/widget/text_l10n.widget.dart'
-    show getTextG, getTextL;
+import 'package:poker_calculator/ui/widget/_import.dart'
+    show SessionDialog, getTextL;
 
 final controller = TextEditingController();
 
@@ -124,21 +120,10 @@ class SessionWidget extends StatelessWidget {
     );
   }
 
-  onDialogOkPressed({
-    required BuildContext context,
-  }) async {
-    _log("onDialogOkPressed").print();
-
-    dispatch(
-      session_action.createSession(
-        name: controller.text,
-      ),
-    );
-
-    onDialogCancelPressed(
-      context: context,
-    );
-  }
+  Widget newSessionDialogBuilder(
+    context,
+  ) =>
+      SessionDialog();
 
   void onSessionCheckBoxChanged(
     bool? hasChanged,
@@ -164,42 +149,7 @@ class SessionWidget extends StatelessWidget {
 
     showDialog(
       context: context,
-      builder: (
-        context,
-      ) {
-        controller.text = '';
-
-        final cancelButton = buildTextButton(
-          label: getTextG((l) => l!.cancel),
-          onPressed: () => onDialogCancelPressed(
-            context: context,
-          ),
-          align: false,
-        );
-
-        final okButton = buildTextButton(
-          label: getTextG((l) => l!.ok),
-          onPressed: () => onDialogOkPressed(
-            context: context,
-          ),
-          align: false,
-        );
-
-        return AlertDialog(
-          title: getTextL((l) => l!.newSessionName),
-          content: TextField(
-            controller: controller,
-            autofocus: true,
-            onSubmitted: (_) => onDialogOkPressed(
-              context: context,
-            ),
-          ),
-          actions: [
-            cancelButton,
-            okButton,
-          ],
-        );
-      },
+      builder: newSessionDialogBuilder,
     );
   }
 

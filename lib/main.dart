@@ -92,21 +92,19 @@ FutureOr initializeApp(
   );
 
   final initialState = ((initialStateString == null)
-      ? (
-          StateModelWrapper.init(
-            l10n: null,
-            l10nGuiRitter: null,
-            loadingTagList: <LoadingTagModel>[],
-            themeMode: theme,
-            token: token,
-            state: StateEnum.foo,
-            sessionId: null,
-            sessionList: <SessionModel>[],
-          ),
+      ? StateModelWrapper.init(
+          l10n: null,
+          l10nGuiRitter: null,
+          loadingTagList: <LoadingTagModel>[],
+          themeMode: theme,
+          token: token,
+          state: StateEnum.foo,
+          sessionId: null,
+          sessionList: <SessionModel>[],
         )
       : StateModelWrapper.deserialize(
           serialized: initialStateString,
-        )) as StateModelWrapper;
+        ));
 
   final store = Store<Map<String, dynamic>>(
     reducer,

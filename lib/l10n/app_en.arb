@@ -1,4 +1,5 @@
 {
+  "another": "Another?",
   "confirmDeleteSession": "Confirm delete session",
   "deleteSessionChallenge": "[{challenge}] to confirm",
   "newSession": "Start a new session",
