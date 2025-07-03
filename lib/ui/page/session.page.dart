@@ -33,9 +33,45 @@ class SessionPage extends StatelessWidget {
   ) {
     _log('connectorBuilder').mapList('sessionList', sessionList).print();
 
+    final sessionCount = sessionList.length;
+    final sessionSelectedCount = SessionModel.getSelectedCount(
+      sessionList: sessionList,
+    );
+
     final isAnySessionSelected = SessionModel.isAnySessionSelected(
       sessionList: sessionList,
     );
+
+    buildSessionWidget(
+      SessionModel session,
+    ) =>
+        SessionWidget(
+          session: session,
+          sessionCount: sessionCount,
+          sessionSelectedCount: sessionSelectedCount,
+        );
+
+    final List<Widget> itemList = sessionList
+        .map(
+          buildSessionWidget,
+        )
+        .toList();
+
+    final sessionCommandWidget = SessionWidget(
+      session: null,
+      sessionCount: sessionCount,
+      sessionSelectedCount: sessionSelectedCount,
+    );
+
+    itemList.add(
+      sessionCommandWidget,
+    );
+
+    itemBuilder(
+      context,
+      index,
+    ) =>
+        itemList[index];
 
     return BodyWidget(
       usePadding: false,
@@ -43,15 +79,8 @@ class SessionPage extends StatelessWidget {
         isAnySessionSelected: isAnySessionSelected,
       ),
       body: ListView.builder(
-        itemCount: sessionList.length + (isAnySessionSelected ? 0 : 1),
-        itemBuilder: (
-          context,
-          index,
-        ) =>
-            SessionWidget(
-          session: (index < sessionList.length) ? sessionList[index] : null,
-          isAnySessionSelected: isAnySessionSelected,
-        ),
+        itemCount: itemList.length,
+        itemBuilder: itemBuilder,
       ),
     );
   }

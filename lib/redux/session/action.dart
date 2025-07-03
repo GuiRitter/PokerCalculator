@@ -43,6 +43,27 @@ ThunkAction<Map<String, dynamic>> deleteSelectedSessions() => (
       );
     };
 
+ThunkAction<Map<String, dynamic>> toggleEverySessionSelection({
+  bool? isSelected,
+}) =>
+    (
+      Store<Map<String, dynamic>> store,
+    ) async {
+      _log('toggleEverySessionSelection').raw('isSelected', isSelected).print();
+
+      final state = StateModelWrapper(
+        storeStateMap: store.state,
+      );
+
+      if (state.sessionList.isEmpty) return;
+
+      store.dispatch(
+        ToggleEverySessionSelectionAction(
+          isSelected: isSelected,
+        ),
+      );
+    };
+
 ThunkAction<Map<String, dynamic>> toggleSessionSelection({
   required String id,
   required bool isSelected,
@@ -74,6 +95,14 @@ class CreateSessionAction {
 }
 
 class DeleteSessionAction {}
+
+class ToggleEverySessionSelectionAction {
+  final bool? isSelected;
+
+  const ToggleEverySessionSelectionAction({
+    this.isSelected,
+  });
+}
 
 class ToggleSessionSelectionAction {
   final String id;

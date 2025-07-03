@@ -4,5 +4,7 @@
   "deleteSessionChallenge": "[{challenge}] to confirm",
   "newSession": "Start a new session",
   "newSessionName": "New session name",
+  "sessionHeader": "Sessions",
+  "sessionSelectedCount": "{selected}/{total} {count, plural, =0{sessions selected} =1{session selected} other{sessions selected}}",
   "title": "Poker Calculator"
 }

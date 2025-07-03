@@ -2,13 +2,18 @@ import 'package:flutter_guiritter/util/_import.dart' show buildUUID;
 import 'package:poker_calculator/model/_import.dart'
     show SessionModel, StateModelWrapper;
 import 'package:poker_calculator/redux/session/action.dart'
-    show CreateSessionAction, DeleteSessionAction, ToggleSessionSelectionAction;
+    show
+        CreateSessionAction,
+        DeleteSessionAction,
+        ToggleEverySessionSelectionAction,
+        ToggleSessionSelectionAction;
 import 'package:redux/redux.dart' show TypedReducer, combineReducers;
 
 final sessionCombinedReducer = combineReducers<Map<String, dynamic>>(
   [
     _createSessionTypedReducer,
     _deleteSessionTypedReducer,
+    _toggleEverySessionSelectionTypedReducer,
     _toggleSessionSelectionTypedReducer,
   ],
 );
@@ -21,6 +26,11 @@ final _createSessionTypedReducer =
 final _deleteSessionTypedReducer =
     TypedReducer<Map<String, dynamic>, DeleteSessionAction>(
   _deleteSessionReducer,
+).call;
+
+final _toggleEverySessionSelectionTypedReducer =
+    TypedReducer<Map<String, dynamic>, ToggleEverySessionSelectionAction>(
+  _toggleEverySessionSelectionReducer,
 ).call;
 
 final _toggleSessionSelectionTypedReducer =
@@ -61,6 +71,38 @@ Map<String, dynamic> _deleteSessionReducer(
   final newSessionList = state.sessionList
       .where(
         SessionModel.isSessionNotSelected,
+      )
+      .toList();
+
+  return state.copyWith(
+    sessionList: () => newSessionList,
+  );
+}
+
+Map<String, dynamic> _toggleEverySessionSelectionReducer(
+  Map<String, dynamic> stateModelMap,
+  ToggleEverySessionSelectionAction action,
+) {
+  final state = StateModelWrapper(
+    storeStateMap: stateModelMap,
+  );
+
+  final isEverySessionSelected = SessionModel.isEverySessionSelected(
+    sessionList: state.sessionList,
+  );
+
+  final newIsSelected = action.isSelected ?? (!isEverySessionSelected);
+
+  SessionModel toggleSelected(
+    SessionModel session,
+  ) =>
+      session.withIsSelected(
+        isSelected: newIsSelected,
+      );
+
+  final newSessionList = state.sessionList
+      .map(
+        toggleSelected,
       )
       .toList();
 

@@ -18,7 +18,8 @@ import 'package:flutter/material.dart'
         Widget,
         WidgetState,
         WidgetStateProperty,
-        WidgetStatesConstraint;
+        WidgetStatesConstraint,
+        WidgetsBinding;
 import 'package:flutter_guiritter/redux/_import.dart' show dispatch;
 import 'package:flutter_guiritter/ui/widget/_import.dart' show buildTextButton;
 import 'package:flutter_guiritter/util/_import.dart'
@@ -55,6 +56,10 @@ class SessionDialog extends StatelessWidget {
     );
 
     final fieldPadding = theme.textTheme.labelLarge?.fontSize ?? 0.0;
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      requestFocus,
+    );
 
     return ValueListenableBuilder<bool>(
       valueListenable: isInsertSequentialNotifier,
@@ -187,4 +192,6 @@ class SessionDialog extends StatelessWidget {
       );
     }
   }
+
+  void requestFocus(_) => focusNode.requestFocus();
 }

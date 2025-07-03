@@ -74,10 +74,26 @@ class SessionModel implements Loggable, Encodable {
         ),
       );
 
+  static int getSelectedCount({
+    required List<SessionModel> sessionList,
+  }) =>
+      sessionList
+          .where(
+            SessionModel.isSessionSelected,
+          )
+          .length;
+
   static bool isAnySessionSelected({
     required List<SessionModel> sessionList,
   }) =>
       sessionList.any(
+        SessionModel.isSessionSelected,
+      );
+
+  static bool isEverySessionSelected({
+    required List<SessionModel> sessionList,
+  }) =>
+      sessionList.every(
         SessionModel.isSessionSelected,
       );
 
